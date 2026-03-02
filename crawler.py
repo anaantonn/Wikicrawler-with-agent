@@ -67,3 +67,15 @@ def get_links(title):
     except Exception as e:
         print(f"Error fetching links for '{title}': {e}")
         return []
+
+# Function to get page's URL
+@ttl_lru_cache(ttl=3600, max_size=128)
+def get_page_url(title):
+    p = get_page(title)
+    if p is None:
+        return ""
+    try:
+        return p.url
+    except Exception as e:
+        print(f"Error fetching URL for '{title}': {e}")
+        return ""
